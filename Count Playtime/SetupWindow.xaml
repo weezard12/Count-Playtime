@@ -1,0 +1,22 @@
+﻿<Window x:Class="Count_Playtime.SetupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Count_Playtime"
+        mc:Ignorable="d"
+        Title="SetupWindow" Height="200" Width="500">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label x:Name="WarningText" Content="Warning! The Count Playtime Service is not " Grid.Row="0" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            
+            <Button x:Name="ActionButton" Content="Install" Grid.Row="1" Click="Install_Click"/>
+        </Grid>
+        
+    </Grid>
+</Window>

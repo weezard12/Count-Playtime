@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Security.Principal;
+using System.ServiceProcess;
 using System.Text;
 using System.Text.Json;
 using System.Windows;
@@ -28,8 +30,39 @@ namespace Count_Playtime
         {
             InitializeComponent();
 
+            ServiceState countPlaytimeServiceState = GetCountPlaytimeServiceState("Count Playtime");
+            if (countPlaytimeServiceState != ServiceState.Running)
+            {
+                SetupWindow setupWindow = new SetupWindow(countPlaytimeServiceState == ServiceState.NotRunning);
+                setupWindow.ShowDialog();
+            }
+
         }
-        
+
+        private static ServiceState GetCountPlaytimeServiceState(string serviceName)
+        {
+            try
+            {
+                using (ServiceController serviceController = new ServiceController(serviceName))
+                {
+                    // Check if the service exists
+                    var status = serviceController.Status;
+                    // Return true if the service status is Running
+                    return (status == ServiceControllerStatus.Running) ? ServiceState.Running : ServiceState.NotRunning;
+                }
+            }
+            catch (InvalidOperationException ex) when (ex.InnerException is System.ComponentModel.Win32Exception)
+            {
+                // This exception occurs if the service does not exist
+                return ServiceState.NotInstalled;
+            }
+            catch (Exception ex)
+            {
+                return ServiceState.NotInstalled;
+            }
+        }
+
+
         private void SearchUpdated(object sender, TextChangedEventArgs e)
         {
             AppControl.UpdateAppData();
@@ -106,5 +139,11 @@ namespace Count_Playtime
             return output.Contains(programName);
         }
         
+        private enum ServiceState
+        {
+            Running,
+            NotInstalled,
+            NotRunning
+        }
     }
 }
