@@ -59,7 +59,7 @@ namespace Count_Playtime
             }
                 
 
-            RunInstallUtil(@"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe", @"""C:\Users\User1\source\repos\Count Playtime\Count Playtime Service\bin\Debug\Count Playtime Service.exe""");
+            RunInstallUtil(@"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe", @"""C:\Program Files\RGS\Count Playtime\Count Playtime Service\Count Playtime Service.exe""");
 
         }
         static void StartService(string serviceName)
