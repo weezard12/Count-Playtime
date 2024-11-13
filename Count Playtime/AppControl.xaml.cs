@@ -20,6 +20,8 @@ namespace Count_Playtime
     /// </summary>
     public partial class AppControl : UserControl
     {
+        string _appName;
+        bool _isCounting;
         public AppControl(string appName)
         {
             InitializeComponent();

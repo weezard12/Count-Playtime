@@ -29,10 +29,10 @@ namespace Count_Playtime
             InitializeComponent();
 
         }
-
+        
         private void SearchUpdated(object sender, TextChangedEventArgs e)
         {
-            Process[] searchPIDs = GetRunningProcessesWithFilter(AppSearch.Text);
+            Process[] searchPIDs = GetUniqProcesses(GetRunningProcessesWithFilter(AppSearch.Text));
             AppsPanel.Children.Clear();
             foreach (var process in searchPIDs)
             {
@@ -50,6 +50,22 @@ namespace Count_Playtime
                 .ToArray();
 
             return filtered;
+        }
+        public static Process[] GetUniqProcesses(Process[] processes)
+        {
+            Dictionary<string, Process> uniqueProcesses = new Dictionary<string, Process>();
+
+            foreach (var process in processes)
+            {
+                // Only add the process if the name is not already in the dictionary
+                if (!uniqueProcesses.ContainsKey(process.ProcessName))
+                {
+                    uniqueProcesses[process.ProcessName] = process;
+                }
+            }
+
+            // Return the processes as an array
+            return uniqueProcesses.Values.ToArray();
         }
         static string GetProcessNameByPid(int pid)
         {
