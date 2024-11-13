@@ -46,7 +46,7 @@
                                 <GradientStop Color="LightGreen" Offset="0.8"/>
                             </LinearGradientBrush>
                         </Border.Background>
-                        <Button x:Name="CountTime" Content="Count Time" Grid.Column="1" Grid.Row="3" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Background="Transparent" BorderThickness="0"/>
+                        <Button x:Name="CountTime" Content="Count Time" Grid.Column="1" Grid.Row="3" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Background="Transparent" BorderThickness="0" Click="CountTime_Click"/>
                     </Border>
                     
                     

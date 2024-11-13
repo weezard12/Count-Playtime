@@ -32,13 +32,14 @@ namespace Count_Playtime
         
         private void SearchUpdated(object sender, TextChangedEventArgs e)
         {
+            AppControl.UpdateAppData();
             Process[] searchPIDs = GetUniqProcesses(GetRunningProcessesWithFilter(AppSearch.Text));
             AppsPanel.Children.Clear();
             foreach (var process in searchPIDs)
             {
                 AppsPanel.Children.Add(new AppControl(process.ProcessName));
             }
-
+            
         }
 
         public static Process[] GetRunningProcessesWithFilter(string filter)
