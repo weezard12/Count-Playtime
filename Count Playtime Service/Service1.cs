@@ -59,6 +59,10 @@ namespace Count_Playtime_Service
                     jsonString = JsonSerializer.Serialize(appData, new JsonSerializerOptions { WriteIndented = true });
                     File.WriteAllText(SaveFilePath, jsonString);
                 }
+                else
+                {
+                    File.WriteAllText(SaveFilePath, @"{""apps"": []}");
+                }
             }
             catch (Exception ex)
             {
