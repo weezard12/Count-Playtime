@@ -24,7 +24,7 @@ namespace Count_Playtime
         private DispatcherTimer _timer;
         private string _appPath;
         private int _usageTime; // Minutes
-        private const string ConfigFilePath = "appUsage.json";
+        private const string ConfigFilePath = "appTime.json";
 
         public MainWindow()
         {

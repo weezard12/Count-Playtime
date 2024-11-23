@@ -105,6 +105,8 @@ namespace Count_Playtime
         #region Json Classes & Methods
         public static void UpdateAppData()
         {
+            if (!File.Exists(FilePath))
+                File.WriteAllText(FilePath, @"{""apps"": []}");
             string jsonString = File.ReadAllText(FilePath);
             CurrentAppData = JsonSerializer.Deserialize<AppData>(jsonString);
         }

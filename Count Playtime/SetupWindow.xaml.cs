@@ -52,15 +52,14 @@ namespace Count_Playtime
                 return;
             }
 
-            if (_doesServiceExsist)
+            if (!_doesServiceExsist)
             {
-                StartService("Count Playtime");
-                return;
+                string installUtilPath = System.IO.Path.Combine(AppContext.BaseDirectory, "Install Util\\InstallUtil.exe");
+                string servicePath = System.IO.Path.Combine(AppContext.BaseDirectory, "Count Playtime Service\\Count Playtime Service.exe");
+                RunInstallUtil(installUtilPath, String.Format(@"""{0}""", servicePath));
             }
+            StartService("Count Playtime");
 
-            string installUtilPath = System.IO.Path.Combine(AppContext.BaseDirectory, "Install Util\\installUtil.exe");
-            string servicePath = System.IO.Path.Combine(AppContext.BaseDirectory, "Count Playtime Service\\Count Playtime Service.exe");
-            RunInstallUtil(installUtilPath, String.Format(@"""{0}""", servicePath));
 
         }
         static void StartService(string serviceName)

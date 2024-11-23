@@ -13,7 +13,7 @@ namespace Count_Playtime_Service
     public partial class Service1 : ServiceBase
     {
         private Timer _timer;
-        private static string SaveFilePath = Path.Combine(Path.GetDirectoryName(AppContext.BaseDirectory), "appTime.json");
+        private static string SaveFilePath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(AppContext.BaseDirectory)), "appTime.json");
         public Service1()
         {
             InitializeComponent();
