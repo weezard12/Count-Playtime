@@ -13,8 +13,7 @@ namespace Count_Playtime_Service
     public partial class Service1 : ServiceBase
     {
         private Timer _timer;
-        private const string FilePath = @"C:\Program Files\RGS\Count Playtime\appTime.json";
-
+        private static string SaveFilePath = Path.Combine(Path.GetDirectoryName(AppContext.BaseDirectory), "appTime.json");
         public Service1()
         {
             InitializeComponent();
@@ -22,7 +21,6 @@ namespace Count_Playtime_Service
 
         protected override void OnStart(string[] args)
         {
-            Log("starting");
             // Initialize the timer to trigger every 1 minute (60000 milliseconds)
             _timer = new Timer(60000); // 1 minute interval
             _timer.Elapsed += OnElapsedTime;
@@ -42,9 +40,9 @@ namespace Count_Playtime_Service
             try
             {
                 // Load the JSON file
-                if (File.Exists(FilePath))
+                if (File.Exists(SaveFilePath))
                 {
-                    string jsonString = File.ReadAllText(FilePath);
+                    string jsonString = File.ReadAllText(SaveFilePath);
                     AppData appData = JsonSerializer.Deserialize<AppData>(jsonString);
 
                     // Check if each app marked with "is_counting" is currently running
@@ -59,14 +57,13 @@ namespace Count_Playtime_Service
 
                     // Save the updated JSON file
                     jsonString = JsonSerializer.Serialize(appData, new JsonSerializerOptions { WriteIndented = true });
-                    File.WriteAllText(FilePath, jsonString);
+                    File.WriteAllText(SaveFilePath, jsonString);
                 }
             }
             catch (Exception ex)
             {
                 // Log the exception (you can use Windows Event Viewer or any logging framework)
                 EventLog.WriteEntry("Count_Playtime_Service", ex.Message, EventLogEntryType.Error);
-                Log(ex.ToString());
             }
         }
 
@@ -96,10 +93,5 @@ namespace Count_Playtime_Service
         }
 
         #endregion
-        public static void Log(string message)
-        {
-            File.WriteAllText("C:\\Users\\User1\\AppData\\Local\\Temp\\Count Time Service\\log.txt", message);
-
-        }
     }
 }

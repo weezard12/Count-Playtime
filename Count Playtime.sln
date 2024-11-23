@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Count Playtime", "Count Playtime\Count Playtime.csproj", "{14A152AE-AE69-4432-9BBD-4B7D80F257C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Count Playtime Service", "..\Count Playtime Service\Count Playtime Service\Count Playtime Service.csproj", "{A8234D47-379A-4375-85F5-794C766E432B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Count Playtime Service", "Count Playtime Service\Count Playtime Service.csproj", "{A8234D47-379A-4375-85F5-794C766E432B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

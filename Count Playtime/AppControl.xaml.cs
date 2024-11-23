@@ -9,11 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
+
 using System.Windows.Shapes;
 
 namespace Count_Playtime
@@ -23,7 +19,7 @@ namespace Count_Playtime
     /// </summary>
     public partial class AppControl : UserControl
     {
-        private const string FilePath = @"C:\Program Files\RGS\Count Playtime\appTime.json";
+        private static string FilePath = System.IO.Path.Combine(AppContext.BaseDirectory,"appTime.json");
         public static AppData CurrentAppData;
 
         App _appToControl;
