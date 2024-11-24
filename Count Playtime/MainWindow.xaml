@@ -5,13 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Count_Playtime"
         mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
         Title="MainWindow" Height="600" Width="800">
     <Grid>
-        <Border>
+        <Border CornerRadius="30">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="0.75,0">
-                    <GradientStop Color="Black" Offset="0.1"/>
-                    <GradientStop Color="DarkMagenta" Offset="0.8"/>
+                    <GradientStop Color="#EA8D8D" Offset="0.1"/>
+                    <GradientStop Color="	#A890FE" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
@@ -24,7 +28,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Content="Count Playtime" FontSize="20"/>
+            <Label Content="Count Playtime" FontSize="20" Foreground="White"/>
             <TextBox x:Name="AppSearch" Grid.Row="1"  Width="300" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" TextChanged="SearchUpdated"/>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -34,21 +38,61 @@
                 <Border Width="80" CornerRadius="10" Margin="0,10,0,10">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,1" EndPoint="0.75,0">
-                            <GradientStop Color="Red" Offset="0.1"/>
-                            <GradientStop Color="Blue" Offset="0.8"/>
+                            <GradientStop Color="#DA67AC" Offset="0.0"/>
+                            <GradientStop Color="#04668D" Offset="0.8"/>
                         </LinearGradientBrush>
+                        
                     </Border.Background>
+                    <Grid Margin="0,10,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Button Grid.Row="0" BorderThickness="0" Click="Search_Click">
+                            <Image Source="/Assets/search_icon.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="20" Direction="270" />
+                                </Image.Effect>
+                            </Image>
+                            <Button.Background>
+                                <SolidColorBrush Color="Transparent"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Grid.Row="1" BorderThickness="0" Click="Counting_Click">
+                            <Image Source="/Assets/apps_time.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="5">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="20" Direction="270" />
+                                </Image.Effect>
+                            </Image>
+                            <Button.Background>
+                                <SolidColorBrush Color="Transparent"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Grid.Row="2" BorderThickness="0" Click="Close_Click">
+                            <Image Source="/Assets/close_icon.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="5">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="20" Direction="270" />
+                                </Image.Effect>
+                            </Image>
+                            <Button.Background>
+                                <SolidColorBrush Color="Transparent"/>
+                            </Button.Background>
+                        </Button>
+                    </Grid>
+                    
                 </Border>
                 <Grid x:Name="AppsGrid" Grid.Row="2" Grid.Column="1" Margin="10">
                     <Border CornerRadius="50">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="0.75,0">
-                                <GradientStop Color="Black" Offset="0.1"/>
-                                <GradientStop Color="Black" Offset="0.8"/>
+                                <GradientStop Color="#DA67AC" Offset="0.0"/>
+                                <GradientStop Color="#04668D" Offset="0.8"/>
                             </LinearGradientBrush>
                         </Border.Background>
                     </Border>
-                    <ScrollViewer Margin="10">
+                    <ScrollViewer Margin="10,10,30,10">
                         
                         <StackPanel x:Name="AppsPanel">
 

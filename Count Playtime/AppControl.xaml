@@ -42,14 +42,16 @@
                     <Border CornerRadius="10">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="0.75,0">
-                                <GradientStop Color="Green" Offset="0.1"/>
-                                <GradientStop Color="LightGreen" Offset="0.8"/>
+                                <GradientStop Color="LightGreen" Offset="0.1"/>
+                                <GradientStop Color="Black" Offset="0.8"/>
                             </LinearGradientBrush>
                         </Border.Background>
-                        <Button x:Name="CountTime" Content="Count Time" Grid.Column="1" Grid.Row="3" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Background="Transparent" BorderThickness="0" Click="CountTime_Click"/>
+                        <Button x:Name="CountTime" Content="Count Time" Grid.Column="1" Grid.Row="3" FontSize="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="White" Background="Transparent" BorderThickness="0" Click="CountTime_Click" ClipToBounds="True">
+
+                        </Button>
                     </Border>
-                    
-                    
+
+
                 </StackPanel>
 
             </Grid>

@@ -10,10 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\apps_time.png" />
+    <None Remove="Assets\close_icon.png" />
+    <None Remove="Assets\srearch_icon.png" />
     <None Remove="weezard.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\apps_time.png" />
+    <Resource Include="Assets\close_icon.png" />
+    <Resource Include="Assets\search_icon.png" />
     <Resource Include="weezard.png" />
   </ItemGroup>
 

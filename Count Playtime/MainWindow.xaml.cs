@@ -37,6 +37,8 @@ namespace Count_Playtime
                 setupWindow.ShowDialog();
             }
 
+            RefreshRunningProcesses();
+
         }
 
         private static ServiceState GetCountPlaytimeServiceState(string serviceName)
@@ -65,13 +67,30 @@ namespace Count_Playtime
 
         private void SearchUpdated(object sender, TextChangedEventArgs e)
         {
+
+            RefreshRunningProcesses(AppSearch.Text);
+        }
+        private void RefreshRunningProcesses(string textFilter = "")
+        {
             AppControl.UpdateAppData();
-            Process[] searchPIDs = GetUniqProcesses(GetRunningProcessesWithFilter(AppSearch.Text));
+            Process[] searchPIDs = GetUniqProcesses(GetRunningProcessesWithFilter(textFilter));
             AppsPanel.Children.Clear();
             foreach (var process in searchPIDs)
             {
                 AppsPanel.Children.Add(new AppControl(process.ProcessName));
             }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+        private void Counting_Click(object sender, RoutedEventArgs e)
+        {
             
         }
 
