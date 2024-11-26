@@ -9,6 +9,7 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Title="MainWindow" Height="600" Width="800">
     <Grid>
         <Border CornerRadius="30">

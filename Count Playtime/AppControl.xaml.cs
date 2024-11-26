@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Count_Playtime.logic;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,9 +10,8 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
-using System.Windows.Shapes;
 
 namespace Count_Playtime
 {
@@ -25,16 +26,21 @@ namespace Count_Playtime
         App _appToControl;
         string _appName;
 
+        string _saveIconPath;
+
         public AppControl(string appName)
         {
             InitializeComponent();
             _appName = appName;
+            _saveIconPath = Path.Combine(Path.GetTempPath(), $"Count Playtime\\{_appName}.png");
 
             AppName.Content = appName;
 
             SetAppToControl(appName);
             SetupPlaytimeText();
             SetupCountTimeButton();
+
+            SetupAppIcon();
         }
 
         private void SetAppToControl(string appName)
@@ -65,6 +71,51 @@ namespace Count_Playtime
             }
             
         }
+
+        private void SetupAppIcon()
+        {
+            if (SaveAndLoadIconFile())
+            {
+                BitmapImage appIcon = GetImageSource(_saveIconPath);
+                AppImage.Source = appIcon;
+                AppImage.Margin = new Thickness(10);
+                AppImage.Width = 32;
+                AppImage.Height = 32;
+
+                GradientColor gradientColor = GradientColor.GetBestGradient(GradientColor.GetDominantColors(appIcon));
+                FirstImageColor.Color = gradientColor.FirstColor;
+                SecondImageColor.Color = gradientColor.SecondColor;
+
+                if (gradientColor.FirstColor.A == 0 || gradientColor.SecondColor.A == 0)
+                    return;
+
+                BackgroundFirstColor.Color = gradientColor.SecondColor;
+                BackgroundSecondColor.Color = gradientColor.FirstColor;
+            }
+        }
+
+        private bool SaveAndLoadIconFile()
+        {
+            if (File.Exists(_saveIconPath))
+                return true;
+
+            if(!Directory.Exists(Path.GetDirectoryName(_saveIconPath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(_saveIconPath));
+
+            Process[] processes = Process.GetProcessesByName(_appName);
+            if (processes.Length > 0)
+            {
+                System.Drawing.Image? icon = ProcessIconRetriever.GetProcessIcon(processes[0]);
+                if (icon == null)
+                    return false;
+
+                icon.Save(_saveIconPath);
+                return true;
+            }
+            else
+                return false;
+        }
+
         private void SetupCountTimeButton()
         {
             if (_appToControl == null)
@@ -100,6 +151,28 @@ namespace Count_Playtime
             File.WriteAllText(FilePath, jsonString);
 
             SetupCountTimeButton();
+        }
+
+
+        private BitmapImage GetImageSource(string filePath)
+        {
+            try
+            {
+                // Create a new BitmapImage
+                BitmapImage bitmap = new BitmapImage();
+
+                // Initialize the BitmapImage
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(filePath, UriKind.Absolute);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad; // Ensures the file is not locked
+                bitmap.EndInit();
+
+                return bitmap;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         #region Json Classes & Methods

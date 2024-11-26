@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Security.Principal;
 using System.ServiceProcess;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Threading;
+using static System.Net.WebRequestMethods;
 
 namespace Count_Playtime
 {
@@ -26,6 +28,7 @@ namespace Count_Playtime
         private int _usageTime; // Minutes
         private const string ConfigFilePath = "appTime.json";
 
+        private ScreenType _screenType = ScreenType.Search;
         public MainWindow()
         {
             InitializeComponent();
@@ -73,12 +76,27 @@ namespace Count_Playtime
         private void RefreshRunningProcesses(string textFilter = "")
         {
             AppControl.UpdateAppData();
-            Process[] searchPIDs = GetUniqProcesses(GetRunningProcessesWithFilter(textFilter));
             AppsPanel.Children.Clear();
-            foreach (var process in searchPIDs)
+            if (_screenType == ScreenType.Search)
             {
-                AppsPanel.Children.Add(new AppControl(process.ProcessName));
+                Process[] searchPIDs = GetUniqProcesses(GetRunningProcessesWithFilter(textFilter));
+                foreach(var process in searchPIDs)
+                {
+                    AppsPanel.Children.Add(new AppControl(process.ProcessName));
+                }
             }
+            else if (_screenType == ScreenType.Saved)
+            {
+                //filters the apps
+                var filteredApps = AppControl.CurrentAppData.Apps
+                .Where(p => p.Name.ToLower().Contains(textFilter.ToLower()))
+                .ToArray();
+
+                foreach (var savedApp in filteredApps)
+                    AppsPanel.Children.Add(new AppControl(savedApp.Name));
+                
+            }
+
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -87,11 +105,14 @@ namespace Count_Playtime
         }
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            
+            _screenType = ScreenType.Search;
+            RefreshRunningProcesses(AppSearch.Text);
+
         }
         private void Counting_Click(object sender, RoutedEventArgs e)
         {
-            
+            _screenType = ScreenType.Saved;
+            RefreshRunningProcesses(AppSearch.Text);
         }
 
         public static Process[] GetRunningProcessesWithFilter(string filter)
@@ -157,12 +178,32 @@ namespace Count_Playtime
             // Check if the program name appears in the output
             return output.Contains(programName);
         }
-        
+
+
+        // Handles mouse drag to move the window
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Start dragging the window when the user clicks anywhere on the window
+            if (e.ButtonState == System.Windows.Input.MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
+
+        #region Enums
         private enum ServiceState
         {
             Running,
             NotInstalled,
             NotRunning
         }
+        private enum ScreenType
+        {
+            Search,
+            Saved,
+            Settings
+        }
+        #endregion
     }
+
 }
