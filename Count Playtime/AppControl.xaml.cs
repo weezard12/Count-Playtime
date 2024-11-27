@@ -74,24 +74,38 @@ namespace Count_Playtime
 
         private void SetupAppIcon()
         {
-            if (SaveAndLoadIconFile())
+            Thread loadImageThread = new Thread( () =>
             {
-                BitmapImage appIcon = GetImageSource(_saveIconPath);
-                AppImage.Source = appIcon;
-                AppImage.Margin = new Thickness(10);
-                AppImage.Width = 32;
-                AppImage.Height = 32;
+                if (SaveAndLoadIconFile())
+                {
+                    
+                    Dispatcher.Invoke(() =>
+                    {
+                        BitmapImage appIcon = GetImageSource(_saveIconPath);
+                        GradientColor gradientColor = GradientColor.GetBestGradient(GradientColor.GetDominantColors(appIcon));
+                        AppImage.Source = appIcon;
+                        AppImage.Margin = new Thickness(10);
+                        AppImage.Width = 32;
+                        AppImage.Height = 32;
 
-                GradientColor gradientColor = GradientColor.GetBestGradient(GradientColor.GetDominantColors(appIcon));
-                FirstImageColor.Color = gradientColor.FirstColor;
-                SecondImageColor.Color = gradientColor.SecondColor;
+                        FirstImageColor.Color = gradientColor.FirstColor;
+                        SecondImageColor.Color = gradientColor.SecondColor;
 
-                if (gradientColor.FirstColor.A == 0 || gradientColor.SecondColor.A == 0)
-                    return;
+                        if (gradientColor.FirstColor.A == 0 || gradientColor.SecondColor.A == 0)
+                        {
+                            BackgroundFirstColor.Color = System.Windows.Media.Color.FromArgb(234, 141, 141, 255);
+                            BackgroundSecondColor.Color = System.Windows.Media.Color.FromArgb(168, 144, 254, 255);
+                            return;
+                        }
+                            
 
-                BackgroundFirstColor.Color = gradientColor.SecondColor;
-                BackgroundSecondColor.Color = gradientColor.FirstColor;
-            }
+                        BackgroundFirstColor.Color = gradientColor.SecondColor;
+                        BackgroundSecondColor.Color = gradientColor.FirstColor;
+                    });
+
+                }
+            });
+            loadImageThread.Start();
         }
 
         private bool SaveAndLoadIconFile()

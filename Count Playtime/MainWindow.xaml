@@ -93,7 +93,7 @@
                             </LinearGradientBrush>
                         </Border.Background>
                     </Border>
-                    <ScrollViewer Margin="10,10,30,10">
+                    <ScrollViewer Margin="15,10,30,10">
                         
                         <StackPanel x:Name="AppsPanel">
 
