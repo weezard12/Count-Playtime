@@ -67,7 +67,18 @@ namespace Count_Playtime
                 if (_appToControl.PlaytimeMinutes == 0)
                     PlaytimeText.Content = "Just Started Counting";
                 else
-                    PlaytimeText.Content = (_appToControl.PlaytimeMinutes < 60) ? (_appToControl.PlaytimeMinutes + "m") : (_appToControl.PlaytimeMinutes / 60 + "h");
+                {
+                    // if less then an hour show only minutes
+                    if (_appToControl.PlaytimeMinutes < 60)
+                        PlaytimeText.Content = _appToControl.PlaytimeMinutes + "m";
+
+                    else
+                        if (((double)_appToControl.PlaytimeMinutes / 60) < 0.1)
+                            PlaytimeText.Content = (_appToControl.PlaytimeMinutes / 60) + "h";
+                    else
+                        PlaytimeText.Content = ((double)_appToControl.PlaytimeMinutes / 60).ToString("F1") + "h";
+                }
+
             }
             
         }

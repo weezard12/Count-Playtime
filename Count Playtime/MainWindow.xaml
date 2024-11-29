@@ -87,17 +87,21 @@
                 <Grid x:Name="AppsGrid" Grid.Row="2" Grid.Column="1" Margin="10">
                     <Border CornerRadius="50">
                         <Border.Background>
-                            <LinearGradientBrush StartPoint="0,1" EndPoint="0.75,0">
+                            <LinearGradientBrush StartPoint="0,1" EndPoint="0.75,0" Opacity="0.7">
                                 <GradientStop Color="#DA67AC" Offset="0.0"/>
-                                <GradientStop Color="#04668D" Offset="0.8"/>
+                                <GradientStop Color="#FAAE81" Offset="0.8"/>
                             </LinearGradientBrush>
                         </Border.Background>
+                        <Border.Effect>
+                            <BlurEffect Radius="0"/>
+                        </Border.Effect>
                     </Border>
                     <ScrollViewer Margin="15,10,30,10">
                         
                         <StackPanel x:Name="AppsPanel">
 
                         </StackPanel>
+
                     </ScrollViewer>
                 </Grid>
             </Grid>
