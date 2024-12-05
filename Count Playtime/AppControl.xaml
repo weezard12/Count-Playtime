@@ -37,7 +37,7 @@
 
                 <!-- Effect -->
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth="5" BlurRadius="20" Opacity="0.5" />
+                    <DropShadowEffect ShadowDepth="5" BlurRadius="20" Opacity="0" />
                 </Border.Effect>
 
                 <!-- Style -->
@@ -111,6 +111,7 @@
                                 <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="2"/>
                             </Button.Effect>
                         </Button>
+                        
                     </Border>
 
                     <Button x:Name="PlaytimeText" Content="Playtime" Grid.Column="1" Grid.Row="2" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverButtonStyle}" />
