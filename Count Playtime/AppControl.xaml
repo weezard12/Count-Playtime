@@ -6,6 +6,24 @@
              xmlns:local="clr-namespace:Count_Playtime"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="500">
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Key="NoHoverButtonStyle">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid HorizontalAlignment="Left" Margin="10">
         <Border CornerRadius="25" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" BorderThickness="0" >
             <Border.Background>
@@ -14,7 +32,38 @@
                     <GradientStop x:Name="BackgroundSecondColor" Color="Red" Offset="0.8"/>
                 </LinearGradientBrush>
             </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="5" BlurRadius="20" Opacity="0.5"/>
+            </Border.Effect>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=MainBorderButton}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Animate Background Color to Green -->
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Opacity)"
+                        To="0.5" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!-- Revert Background Color to Black -->
+                                        <DoubleAnimation Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Opacity)"
+                        To="0" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
             <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -28,7 +77,7 @@
                         </LinearGradientBrush>
                     </Border.Background>
 
-                    <Button Grid.Column="0" Grid.Row="0" Margin="-5" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button Grid.Column="0" Grid.Row="0" Margin="-5" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource NoHoverButtonStyle}">
                         <Grid>
                             <Image x:Name="AppImage" Source="pack://application:,,,/weezard.png" Stretch="Uniform" Height="100" Width="100">
                                 <Image.Effect>
@@ -47,28 +96,56 @@
                         <Border.Background>
                             <SolidColorBrush Color="Black" Opacity="0.1"/>
                         </Border.Background>
-                        <Button x:Name="AppName" Content="App Name" Margin="0,-12,0,0" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0">
+                        <Button x:Name="AppName" Content="App Name" Margin="5,-12,5,0" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverButtonStyle}">
                             <Button.Effect>
                                 <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="2"/>
                             </Button.Effect>
                         </Button>
                     </Border>
 
-                    <Button x:Name="PlaytimeText" Content="Playtime" Grid.Column="1" Grid.Row="2" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Background="Transparent" BorderThickness="0"/>
+                    <Button x:Name="PlaytimeText" Content="Playtime" Grid.Column="1" Grid.Row="2" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Background="Transparent" BorderThickness="0" Style="{StaticResource NoHoverButtonStyle}" />
                     <Border CornerRadius="10">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=CountTime}" Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <!-- Animate Background Color to Green -->
+                                                    <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                To="LightGreen" Duration="0:0:0.2" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                        <DataTrigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <!-- Revert Background Color to Black -->
+                                                    <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                To="Black" Duration="0:0:0.3" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.ExitActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                         <Border.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.7"/>
-                            
+                            <SolidColorBrush Color="Black" Opacity="0.7" />
                         </Border.Background>
-                        <Button x:Name="CountTime" Content="Count Time" Grid.Column="1" Grid.Row="3" FontSize="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="White" Background="Transparent" BorderThickness="0" Click="CountTime_Click" ClipToBounds="True">
-                        
-                        </Button>
+                        <Button x:Name="CountTime" Content="Count Time" Grid.Column="1" Grid.Row="3" FontSize="15" 
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="White" 
+                        Background="Transparent" BorderThickness="0" Click="CountTime_Click" 
+                        ClipToBounds="True" Style="{StaticResource NoHoverButtonStyle}"/>
                     </Border>
+
 
 
                 </StackPanel>
 
             </Grid>
         </Border>
+        <Button x:Name="MainBorderButton" Margin="5" Opacity="0"/>
     </Grid>
 </UserControl>

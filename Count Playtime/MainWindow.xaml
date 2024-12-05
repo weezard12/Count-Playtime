@@ -49,6 +49,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
                         <Button Grid.Row="0" BorderThickness="0" Click="Search_Click">
@@ -71,7 +72,17 @@
                                 <SolidColorBrush Color="Transparent"/>
                             </Button.Background>
                         </Button>
-                        <Button Grid.Row="2" BorderThickness="0" Click="Close_Click">
+                        <Button Grid.Row="2" BorderThickness="0" Click="Settings_Click">
+                            <Image Source="/Assets/apps_time.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="5">
+                                <Image.Effect>
+                                    <DropShadowEffect BlurRadius="20" Direction="270" />
+                                </Image.Effect>
+                            </Image>
+                            <Button.Background>
+                                <SolidColorBrush Color="Transparent"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Grid.Row="3" BorderThickness="0" Click="Close_Click">
                             <Image Source="/Assets/close_icon.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="5">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="20" Direction="270" />
@@ -97,7 +108,6 @@
                         </Border.Effect>
                     </Border>
                     <ScrollViewer Margin="15,10,30,10">
-                        
                         <StackPanel x:Name="AppsPanel">
 
                         </StackPanel>

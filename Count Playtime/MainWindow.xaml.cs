@@ -98,7 +98,11 @@ namespace Count_Playtime
             }
 
         }
-
+        #region Buttons
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
@@ -114,6 +118,7 @@ namespace Count_Playtime
             _screenType = ScreenType.Saved;
             RefreshRunningProcesses(AppSearch.Text);
         }
+        #endregion
 
         public static Process[] GetRunningProcessesWithFilter(string filter)
         {
