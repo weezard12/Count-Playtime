@@ -234,5 +234,9 @@ namespace Count_Playtime
 
         #endregion
 
+        private void EventTrigger_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+
+        }
     }
 }
