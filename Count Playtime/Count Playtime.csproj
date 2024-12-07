@@ -7,14 +7,20 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\icon128.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Assets\apps_time.png" />
     <None Remove="Assets\close_icon.png" />
     <None Remove="Assets\pencil.png" />
-    <None Remove="Assets\srearch_icon.png" />
+    <None Remove="Assets\search_icon.png" />
+    <None Remove="Assets\settings_icon.png" />
     <None Remove="weezard.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\icon128.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +28,7 @@
     <Resource Include="Assets\close_icon.png" />
     <Resource Include="Assets\pencil.png" />
     <Resource Include="Assets\search_icon.png" />
+    <Resource Include="Assets\settings_icon.png" />
     <Resource Include="weezard.png" />
   </ItemGroup>
 

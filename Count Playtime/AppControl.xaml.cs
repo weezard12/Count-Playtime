@@ -10,6 +10,8 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 
@@ -237,6 +239,40 @@ namespace Count_Playtime
         private void EventTrigger_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
 
+        }
+
+        private void AppName_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ScaleButton(RenameImage, 0, 20); // Scale up
+        }
+
+        private void AppName_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ScaleButton(RenameImage, 20, 0); // Scale down
+        }
+
+        private void ScaleButton(Image scaleTransform, double from, double to)
+        {
+            // Create the ScaleX and ScaleY animations
+            var scaleXAnimation = new DoubleAnimation
+            {
+                From = from,
+                To = to,
+                Duration = TimeSpan.FromMilliseconds(100),
+                EasingFunction = new SineEase()
+            };
+
+            var scaleYAnimation = new DoubleAnimation
+            {
+                From = from,
+                To = to,
+                Duration = TimeSpan.FromMilliseconds(100),
+                EasingFunction = new SineEase()
+            };
+
+            // Apply animations
+            scaleTransform.BeginAnimation(WidthProperty, scaleXAnimation);
+            scaleTransform.BeginAnimation(WidthProperty, scaleYAnimation);
         }
     }
 }

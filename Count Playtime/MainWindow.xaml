@@ -10,7 +10,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Title="MainWindow" Height="600" Width="800">
+        Title="Count Playtime" Height="600" Width="800">
     <Window.Resources>
         <Style TargetType="Button" x:Key="ScaleUpButtonStyle">
             <Setter Property="Background" Value="Transparent" />
@@ -162,17 +162,12 @@
                         </Grid.RowDefinitions>
 
                         <Button Grid.Row="0" BorderThickness="0" Click="Search_Click">
-                            <Grid Width="20" Height="20">
+                            
                                 <Image Source="/Assets/search_icon.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform">
                                     <Image.Effect>
                                         <DropShadowEffect BlurRadius="20" Direction="270" />
                                     </Image.Effect>
                                 </Image>
-
-                                <Grid.Style>
-                                    <Style TargetType="Grid" BasedOn="{StaticResource ScaleUpGrid}"/>
-                                </Grid.Style>
-                            </Grid>
 
                             <Button.Background>
                                 <SolidColorBrush Color="Transparent"/>
@@ -189,7 +184,7 @@
                             </Button.Background>
                         </Button>
                         <Button Grid.Row="2" BorderThickness="0" Click="Settings_Click">
-                            <Image Source="/Assets/apps_time.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="5">
+                            <Image Source="/Assets/settings_icon.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Margin="5">
                                 <Image.Effect>
                                     <DropShadowEffect BlurRadius="20" Direction="270" />
                                 </Image.Effect>
